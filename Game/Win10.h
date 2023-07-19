@@ -1,5 +1,5 @@
-//
-// Файл заголовка, Header file
+п»ї//
+// Р¤Р°Р№Р» Р·Р°РіРѕР»РѕРІРєР°, Header file
 //  Win10.h
 //
 #pragma once
@@ -7,8 +7,8 @@
 #include <Windows.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <conio.h>  // для _getch(), _getche(), _kbhit()
-#include <io.h>     // низкоуровневый ввод-вывод
+#include <conio.h>  // РґР»СЏ _getch(), _getche(), _kbhit()
+#include <io.h>     // РЅРёР·РєРѕСѓСЂРѕРІРЅРµРІС‹Р№ РІРІРѕРґ-РІС‹РІРѕРґ
 
 #define SETLOCAL_RU system( "chcp 1251 > nul" )
 #define SETLOCAL_EN system( "chcp 866 > nul" )
@@ -19,7 +19,7 @@
 #define CREATE_COLOR(fon,sym)   (((fon) << 4) | (sym))
 
 
-// печисление константных имен
+// РїРµС‡РёСЃР»РµРЅРёРµ РєРѕРЅСЃС‚Р°РЅС‚РЅС‹С… РёРјРµРЅ
 enum COLOR {
   black,    // = 0
   blue,     // 1 = black + 1
@@ -40,12 +40,12 @@ enum COLOR {
 };
 
 
-// перечисление кодов клавиш клавиатуры
-// именнованное перечисление с именем KEY
+// РїРµСЂРµС‡РёСЃР»РµРЅРёРµ РєРѕРґРѕРІ РєР»Р°РІРёС€ РєР»Р°РІРёР°С‚СѓСЂС‹
+// РёРјРµРЅРЅРѕРІР°РЅРЅРѕРµ РїРµСЂРµС‡РёСЃР»РµРЅРёРµ СЃ РёРјРµРЅРµРј KEY
 enum _KEY {
   ESC = 27,
   ENTER = 13,
-  SPACE = 32,     // пробел
+  SPACE = 32,     // РїСЂРѕР±РµР»
   TAB = 9,
   BACKSPACE = 8,
   PLUS = 43, MINUS = 45,
@@ -62,22 +62,22 @@ enum _KEY {
   F11 = 133, F12 = 134, // CURSOR2, 133-134
 };
 
-// Прототипы ф-ций из файла Win10.cpp
+// РџСЂРѕС‚РѕС‚РёРїС‹ С„-С†РёР№ РёР· С„Р°Р№Р»Р° Win10.cpp
 
-// функция для смена цвета
+// С„СѓРЅРєС†РёСЏ РґР»СЏ СЃРјРµРЅР° С†РІРµС‚Р°
 void SetColor(int colBkgr, int colSym);
 void SetColor(WORD wAttributes);
 
-// Функция для установки позиции курсора вывода
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё РїРѕР·РёС†РёРё РєСѓСЂСЃРѕСЂР° РІС‹РІРѕРґР°
 void SetPos(int Row, int Col);
 
-// Функция для скрытия каретки
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ СЃРєСЂС‹С‚РёСЏ РєР°СЂРµС‚РєРё
 void CursorHide(BOOL bVisible = FALSE, DWORD dwSize = 10);
 
-// Ф-ция определения видимого размера консольного окна
+// Р¤-С†РёСЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РІРёРґРёРјРѕРіРѕ СЂР°Р·РјРµСЂР° РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ РѕРєРЅР°
 void GetConsoleSize(int& Width, int& Height);
 
-// Ф-ция установки размера консольного окна
+// Р¤-С†РёСЏ СѓСЃС‚Р°РЅРѕРІРєРё СЂР°Р·РјРµСЂР° РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ РѕРєРЅР°
 void SetConsoleSize(int Width, int Height);
 void SetConsoleSize(SIZE szConsWin);
 
