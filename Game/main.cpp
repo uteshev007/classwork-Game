@@ -49,14 +49,23 @@ int PoleRow = 3; // по строке
 int PoleCol = 8; // по столбцу
 
 vector < BasePlayer*> lstPlayers;
+int cntPlayer   = 1;
+int cntEnemy    = 10;
 bool isPause = false;
+bool isGameOver = false;
+bool isGameStart = false;
+bool isWin = false;
+int cntWin  =   0;
+int cntLost =   0;
+
+
 
 // прототипы функций
-void StartGame();     // ф-ция для запуска новой игры
+void StartGame();       // ф-ция для запуска новой игры
 //GetCoordHero();       // Функция для получения координаты главного игрока
 //GetCoordEnemys();     // Функция для получения координат противников
-void DrawPole();      // функция вывода игрового поля на экран
-
+void DrawPole();         // функция вывода игрового поля на экран
+void InitNewGame();
 int main()
 {
   //system("chcp 1251 > nul"); //setlocale(LC_ALL, "RUSSIAN");
@@ -68,7 +77,7 @@ int main()
   PoleWidth = Pole[0].size(); // ширина строки поля
 
   // MainMenu(); // Главное меню игры
-
+  InitNewGame();
   StartGame();     // ф-ция для запуска новой игры
   // ContinueGame();  // ф-ция для продолжения игры после паузы
   // Settings();      // настройки
@@ -77,10 +86,46 @@ int main()
   cin.get(); cin.get();
 } // main()
 
+void InitNewGame()
+{
+    for (size_t i = 0; i < lstPlayers.size(); i++)
+        delete lstPlayers[i];
+    lstPlayers.clear();
+    cntEnemy = 0;
+    for (int row = 0; row < PoleHeight; row++)
+    {
+        for (int col = 0; col < PoleWidth; col++)
+        {
+            if (Pole[row][col] == '@')
+            {
+                BasePlayer* temp = new Enemy;
+                temp->SetRowCol(row, col);
+                lstPlayers.push_back(temp);
+                //lstPlayers.insert(begin(lstPlayers), temp);
+                cntEnemy++;
+            }
+            if (Pole[row][col] == '&')
+            {
+                BasePlayer* temp = new Player;
+                temp->SetRowCol(row, col);
+                lstPlayers.insert(begin(lstPlayers), temp);
+                //cntPlayer++
+
+            }
+        }
+    }
+    isGameOver = false;
+    isWin = false;
+
+
+} // InitNewGame
 
 // Функция начала новой игры
 void StartGame()
 {
+    isPause = false;
+    isGameStart = true;
+
   // получить текущую позицию игрока
   while (true) // цикл пока идет игра, завершить цикл по завершению игры
   {
@@ -109,7 +154,9 @@ void StartGame()
     DrawPole(); // вывод поля на экран
     if (isPause) { return; }
 
+
     // 6) проверка на завершение: победа или поражение
+    Sleep(200);
   } // while(true)
 
 } // StartGame()
@@ -117,6 +164,7 @@ void StartGame()
 // функция вывода игрового поля на экран
 void DrawPole()
 {
+    int iEn = 1;
   for (int i = 0; i < PoleHeight; i++)
   {
     // поставить курсор консоли для i-ой строки поля
@@ -143,7 +191,9 @@ void DrawPole()
         SetColor(COLOR::black, COLOR::light_purple);  cout << 'l';
       }
       else if (Pole[i][j] == '@') { // противники
-        SetColor(COLOR::black, COLOR::light_aqua);    cout << char(2); // лицо
+       // SetColor(COLOR::black, COLOR::light_aqua);    cout << char(2); // лицо
+          cout << *lstPlayers[iEn++];
+          //iEn++;
       }
       else if (Pole[i][j] == 'B') {
         SetColor(COLOR::black, COLOR::bright_white);  cout << char(1);
@@ -152,7 +202,8 @@ void DrawPole()
         SetColor(COLOR::black, COLOR::light_red);     cout << char(3);
       }
       else if (Pole[i][j] == '&') { // главный герой игры
-        SetColor(COLOR::black, COLOR::light_yellow);  cout << char(2);
+        //SetColor(COLOR::black, COLOR::light_yellow);  cout << char(2);
+          cout << *lstPlayers[0];
       }
       else { cout << Pole[i][j]; } // все остальные символы поля
 
